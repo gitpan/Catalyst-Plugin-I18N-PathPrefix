@@ -226,7 +226,7 @@ SEE ALSO
     Catalyst::Plugin::I18N, Catalyst::TraitFor::Request::PerLanguageDomains
 
 AUTHOR
-    Norbert Buchmüller, "<norbi at nix.hu>"
+    Norbert Buchmuller, "<norbi at nix.hu>"
 
 TODO
     make "uri_for_in_language" work on language-independent URIs
@@ -273,7 +273,7 @@ ACKNOWLEDGEMENTS
     reviews, improvement ideas and mentoring in general.
 
 COPYRIGHT & LICENSE
-    Copyright 2010 Norbert Buchmüller, all rights reserved.
+    Copyright 2010 Norbert Buchmuller, all rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

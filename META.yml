@@ -1,7 +1,7 @@
 ---
 abstract: 'Language prefix in the request path'
 author:
-  - 'Norbert Buchmüller, C<< <norbi at nix.hu> >>'
+  - 'Norbert Buchmuller, C<< <norbi at nix.hu> >>'
 build_requires:
   Catalyst::Test: 0
   Data::Dumper: 0
@@ -40,4 +40,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/mendel/Catalyst-Plugin-I18N-PathPrefix.git
-version: 0.01
+version: 0.02
