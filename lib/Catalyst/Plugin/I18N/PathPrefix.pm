@@ -21,11 +21,11 @@ Catalyst::Plugin::I18N::PathPrefix - Language prefix in the request path
 
 =head1 VERSION
 
-Version 0.01
+Version 0.03
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 
 =head1 SYNOPSIS
@@ -126,6 +126,9 @@ to remove the prefix from them).
 Use a regex that matches all your paths that return language independent
 information.
 
+If you don't set this config option or you set it to an undefined value, no
+paths will be handled as language independent ones.
+
 =head2 debug
 
   debug => $boolean
@@ -136,9 +139,6 @@ $c->log->debug(...) >>).
 =head1 METHODS
 
 =cut
-
-# should be a 'state' var on Perl 5.10+
-my %valid_language_codes;
 
 =head2 setup_finalize
 
@@ -152,11 +152,19 @@ Sets up the package configuration.
 after setup_finalize => sub {
   my ($c) = (shift, @_);
 
+  my $config = $c->config->{'Plugin::I18N::PathPrefix'};
+
+  $config->{fallback_language} = lc $config->{fallback_language};
+
   my @valid_language_codes = map { lc $_ }
-    @{ $c->config->{'Plugin::I18N::PathPrefix'}->{valid_languages} };
+    @{ $config->{valid_languages} };
 
   # fill the hash for quick lookups
-  @valid_language_codes{ @valid_language_codes } = ();
+  @{ $config->{_valid_language_codes}}{ @valid_language_codes } = ();
+
+  if (!defined $config->{language_independent_paths}) {
+    $config->{language_independent_paths} = qr/(?!)/; # never matches anything
+  }
 };
 
 =head2 prepare_path
@@ -218,13 +226,15 @@ sub prepare_path_prefix
 
   my $config = $c->config->{'Plugin::I18N::PathPrefix'};
 
-  my $language_code = lc $config->{fallback_language};
+  my $language_code = $config->{fallback_language};
+
+  my $valid_language_codes = $config->{_valid_language_codes};
 
   if ($c->req->path !~ $config->{language_independent_paths}) {
     my ($prefix, $path) = split m{/}, $c->req->path, 2;
     $prefix = lc $prefix;
 
-    if (defined $prefix && exists $valid_language_codes{$prefix}) {
+    if (defined $prefix && exists $valid_language_codes->{$prefix}) {
       $language_code = $prefix;
 
       $c->_language_prefix_debug("found language prefix '$language_code' "
@@ -242,7 +252,7 @@ sub prepare_path_prefix
       else {
         $c->_language_prefix_debug("path '" . $c->req->path . "' is language independent");
 
-        $language_code = lc $config->{fallback_language};
+        $language_code = $config->{fallback_language};
       }
 
       # it seems that Catalyst::Request is quirky - we have to explicitly set
@@ -252,7 +262,7 @@ sub prepare_path_prefix
     }
     else {
       my $detected_language_code =
-        first { exists $valid_language_codes{$_} }
+        first { exists $valid_language_codes->{$_} }
           map { lc $_ }
             @{ $c->languages };
 
@@ -263,7 +273,6 @@ sub prepare_path_prefix
 
       # fake that the request path already contained the language code prefix
       $c->req->uri->path($language_code . '/' . $c->req->path);
-      $c->req->path($language_code . '/' . $c->req->path);
 
       # append the language code to the base
       my $req_base = $c->req->base;

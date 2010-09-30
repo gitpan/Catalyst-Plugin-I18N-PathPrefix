@@ -104,6 +104,29 @@ my @tests = (
   },
 
   {
+    config  => {
+      language_independent_paths => undef,
+    },
+    request => {
+      path => '/language_independent_stuff',
+      accept_language => ['de'],
+    },
+    expected => {
+      language => 'de',
+      req => {
+        uri => 'http://localhost/de/language_independent_stuff',
+        base => 'http://localhost/de/',
+        path => 'language_independent_stuff',
+      },
+      action => 'TestApp::Controller::Root::language_independent_stuff',
+      log => [
+        debug => 'detected language: \'de\'',
+        debug => 'set language prefix to \'de\'',
+      ],
+    },
+  },
+
+  {
     request => {
       path => '/fr',
       accept_language => ['de'],
@@ -252,6 +275,25 @@ my @tests = (
       ],
     },
   },
+  {
+    request => {
+      path => '/',
+      accept_language => ['de'],
+    },
+    expected => {
+      language => 'de',
+      req => {
+        uri => 'http://localhost/de/',
+        base => 'http://localhost/de/',
+        path => '',
+      },
+      action => 'TestApp::Controller::Root::index',
+      log => [
+        debug => 'detected language: \'de\'',
+        debug => 'set language prefix to \'de\'',
+      ],
+    },
+  },
 
   {
     config => {
@@ -319,6 +361,7 @@ my @tests = (
       TestApp->config->{'Plugin::I18N::PathPrefix'}->{$config_key}
         = $config_value;
     }
+    TestApp->setup_finalize;  # force C:P:I18N::PathPrefix re-parse its config
 
     my ($response, $c) = ctx_request(
       GET $test->{request}->{path},

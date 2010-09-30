@@ -2,7 +2,7 @@ NAME
     Catalyst::Plugin::I18N::PathPrefix - Language prefix in the request path
 
 VERSION
-    Version 0.01
+    Version 0.03
 
 SYNOPSIS
       # in MyApp.pm
@@ -96,6 +96,9 @@ CONFIGURATION
 
     Use a regex that matches all your paths that return language independent
     information.
+
+    If you don't set this config option or you set it to an undefined value,
+    no paths will be handled as language independent ones.
 
   debug
       debug => $boolean
