@@ -40,4 +40,4 @@ requires:
 resources:
   license: http://dev.perl.org/licenses/
   repository: git://github.com/mendel/Catalyst-Plugin-I18N-PathPrefix.git
-version: 0.03
+version: 0.04

@@ -26,6 +26,7 @@ t/10-prepare_path_prefix.t
 t/11-uri_for_in_language.t
 t/12-switch_language.t
 t/13-language_switch_options.t
+t/20-req_uri_query_params_obliterated_bug.t
 t/lib/TestApp.pm
 t/lib/TestApp/Controller/Foo.pm
 t/lib/TestApp/Controller/Root.pm
@@ -33,3 +34,4 @@ t/lib/TestApp/I18N/de.pm
 t/lib/TestApp/I18N/en.pm
 t/lib/TestApp/I18N/fr.pm
 t/lib/TestApp/I18N/it.pm
+t/lib/TestUtils.pm
