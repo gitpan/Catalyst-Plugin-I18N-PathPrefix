@@ -21,11 +21,11 @@ Catalyst::Plugin::I18N::PathPrefix - Language prefix in the request path
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 
 =head1 SYNOPSIS
@@ -234,7 +234,7 @@ sub prepare_path_prefix
 
   if ($req_path !~ $config->{language_independent_paths}) {
     my ($prefix, $path) = split m{/}, $req_path, 2;
-    $prefix = lc $prefix;
+    $prefix = lc $prefix if defined $prefix;
     $path   = '' if !defined $path;
 
     if (defined $prefix && exists $valid_language_codes->{$prefix}) {
