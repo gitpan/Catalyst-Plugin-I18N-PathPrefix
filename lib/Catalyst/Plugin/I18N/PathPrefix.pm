@@ -21,11 +21,11 @@ Catalyst::Plugin::I18N::PathPrefix - Language prefix in the request path
 
 =head1 VERSION
 
-Version 0.05
+Version 0.06
 
 =cut
 
-our $VERSION = '0.05';
+our $VERSION = '0.06';
 
 
 =head1 SYNOPSIS
@@ -64,10 +64,6 @@ our $VERSION = '0.05';
     # the template will display the language switch
     $c->stash('language_switch' => $c->language_switch_options);
   }
-
-=head1 DISCLAIMER
-
-This is ALPHA SOFTWARE. Use at your own risk. Features may change.
 
 =head1 DESCRIPTION
 

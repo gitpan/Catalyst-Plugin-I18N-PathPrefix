@@ -2,7 +2,7 @@ NAME
     Catalyst::Plugin::I18N::PathPrefix - Language prefix in the request path
 
 VERSION
-    Version 0.05
+    Version 0.06
 
 SYNOPSIS
       # in MyApp.pm
@@ -39,9 +39,6 @@ SYNOPSIS
         # the template will display the language switch
         $c->stash('language_switch' => $c->language_switch_options);
       }
-
-DISCLAIMER
-    This is ALPHA SOFTWARE. Use at your own risk. Features may change.
 
 DESCRIPTION
     This module allows you to put the language selector as a prefix to the
