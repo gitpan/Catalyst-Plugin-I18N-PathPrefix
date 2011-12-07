@@ -2,7 +2,7 @@ NAME
     Catalyst::Plugin::I18N::PathPrefix - Language prefix in the request path
 
 VERSION
-    Version 0.06
+    Version 0.07
 
 SYNOPSIS
       # in MyApp.pm

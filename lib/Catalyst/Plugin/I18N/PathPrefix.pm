@@ -9,7 +9,7 @@ requires
   # from Catalyst
   'config', 'prepare_path', 'req', 'uri_for', 'log',
   # from Catalyst::Plugin::I18N
-  'languages', 'language', 'loc';
+  'languages', 'loc';
 
 use List::Util qw(first);
 use Scope::Guard;
@@ -21,11 +21,11 @@ Catalyst::Plugin::I18N::PathPrefix - Language prefix in the request path
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 
 =head1 SYNOPSIS
